@@ -1,0 +1,87 @@
+<html>
+    <title>Pregdia</title>
+    <head>
+        <link href="styles.css" rel="stylesheet" />
+        <link href="home.css" rel="stylesheet" />
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div>
+            <div class="form-wrapper login">
+                <div class="text-center py-5">
+                    <h3 class="text-white">PREGDIA</h3>
+                </div>
+                <form class="mt-3">
+                    <div class="mt-3">
+                        <label>First Name</label>
+                        <div class="form_input">
+                            <input type="text"  class="form-control" id="fname" required />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label>Last Name</label>
+                        <div class="form_input">
+                            <input type="text"  class="form-control"  id="lname"  required />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label>Email</label>
+                        <div class="form_input">
+                            <input type="email"  class="form-control"  id="email" required />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label>Password</label>
+                        <div class="form_input">
+                            <input type="password"  class="form-control" id="pass"  required   />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label>Confirm Password</label>
+                        <div class="form_input">
+                            <input type="password"  class="form-control" id="confPass" required />
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-large mt-5 w-100 submit" type="submit" > Register </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            document.querySelector('.submit').addEventListener('click' , (e) =>{
+                e.preventDefault()
+                if(document.getElementById('pass').value !== document.getElementById('confPass').value) {
+                    alert('Passwords do not match')
+                    return
+                }
+                if(document.getElementById('fname').value === '' || document.getElementById('lname').value === '' || document.getElementById('email').value === '' ||  document.getElementById('pass').value === '') {
+                    alert('please fill in the missing fields')
+                    return
+                }
+                const data =  {
+                    firstName: document.getElementById('fname').value,
+                    lastName:  document.getElementById('lname').value,
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('fname').value,
+                    confirmPassword: document.getElementById('fname').value,
+                }
+                console.log(data)
+
+                fetch('https://pregdia-app.herokuapp.com/api/v1.0.0/auth/user/signup', {    
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }).then(response => response.json()).then(data => {
+                    console.log('Success:', data);
+                }).catch((error) => {
+                    console.error('Error:', error);
+                });
+            })
+        </script>
+    </body>
+</html>

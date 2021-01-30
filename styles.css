@@ -15,6 +15,16 @@ body {
     box-shadow: 0px 3px 6px #0000000d;
     background: white;
  }
+ .header-bg-2 {
+    height: 250px;
+    width: 80%;
+    margin: 0 auto;
+    background: linear-gradient(rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.8)),  url(img/1800x1200_mother_and_newborn_other.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+ }
  .header-bg {
     height: 250px;
     width: 80%;
@@ -59,6 +69,7 @@ body {
     width: 14rem;
     border-radius: 20px;
     box-shadow: 0px 6px 12px #0000000d;
+    cursor: pointer;
 } 
 .p-card:hover {
     
