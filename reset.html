@@ -11,14 +11,14 @@
             <div class="succes succes-animation icon-top"><i class="fa fa-check" style="margin-top: 34px"></i></div>
             <div class="succes border-bottom"></div>
             <div class="content">
-              <p class="message-type success-msg">Succesfully Logged in, redirecting in 4 secs</p>
+              <p class="message-type success-msg">A verification link has been sent to your mail</p>
             </div>
         </div>
         <div class="custom-modal error-modal">
             <div class="danger danger-animation icon-top"><i class="fa fa-check" style="margin-top: 34px"></i></div>
             <div class="danger border-bottom"></div>
             <div class="content">
-              <p class="message-type error-msg">An error occured, pleasw try again</p>
+              <p class="message-type error-msg">An error occured, please try again</p>
             </div>
         </div>
         <div>
@@ -27,30 +27,19 @@
                     <h3 class="text-white">PREGDIA</h3>
                 </div>
                 <form class="mt-3">
+                    <h6 class="text-center"> Reset Password</h6>
                     <div class="mt-3">
                         <label>Email</label>
                         <div class="form_input">
                             <input type="email"  class="form-control"  id="email"/>
                         </div>
                     </div>
-                    <div class="mt-3">
-                        <label>Password</label>
-                        <div class="form_input">
-                            <input type="password"  class="form-control"  id="pass" />
-                        </div>
-                    </div>
                     <div class="text-center">
-                        <button class="btn btn-primary btn-large mt-5 w-100 submit" type="submit" > Login  
+                        <button class="btn btn-primary btn-large mt-5 w-100 submit" type="submit" >Submit  
                             <img src="img/git_loader.gif" width="20" class="loader ml-3" />
                         </button>
                     </div>
                 </form>
-                <div class="text-center">
-                    <a href="reset.html" class="text-white">Reset password</a>
-                </div>
-                <div class="text-center">
-                    <a href="signup.html" class="text-white">Don't have an account? Sign up</a>
-                </div>
             </div>
         </div>
     </body>
@@ -59,16 +48,15 @@
             e.preventDefault()
             document.querySelector('.sucess-modal').style.display = 'none'
             document.querySelector('.error-modal').style.display = 'none'
-            if( document.getElementById('email').value === '' ||  document.getElementById('pass').value === '') {
-                alert('please fill in the missing fields')
+            if( document.getElementById('email').value === '' ) {
+                alert('Email is required')
                 return
             }
             const data =  {
                 email: document.getElementById('email').value,
-                password: document.getElementById('pass').value,
             }
             document.querySelector('.loader').style.display = 'inline'
-            fetch('https://pregdia-app.herokuapp.com/api/v1.0.0/auth/user/login', {    
+            fetch('https://pregdia-app.herokuapp.com/api/v1.0.0/auth/user/forgotPassword', {    
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,9 +77,6 @@
                 localStorage.setItem('pregdiaUser', JSON.stringify(data.data.content))
                 document.querySelector('.sucess-modal').style.display = 'block'
                 
-                setTimeout(() => {
-                    window.location.replace("http://127.0.0.1:5500/category.html")
-                },5000)
             }).catch((error) => {
                 document.querySelector('.loader').style.display = 'none'
                 document.querySelector('.error-modal').style.display = 'block'

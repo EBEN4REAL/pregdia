@@ -7,6 +7,20 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     </head>
     <body>
+        <div class="custom-modal sucess-modal">
+            <div class="succes succes-animation icon-top"><i class="fa fa-check" style="margin-top: 34px"></i></div>
+            <div class="succes border-bottom"></div>
+            <div class="content">
+              <p class="message-type success-msg">Succesfully Logged in, redirecting in 4 secs Succesfully Logged in, redirecting in 4 secs</p>
+            </div>
+        </div>
+        <div class="custom-modal error-modal">
+            <div class="danger danger-animation icon-top"><i class="fa fa-check" style="margin-top: 34px"></i></div>
+            <div class="danger border-bottom"></div>
+            <div class="content">
+              <p class="message-type error-msg">An error occured, pleasw try again</p>
+            </div>
+        </div>
         <div>
             <div class="form-wrapper login">
                 <div class="text-center py-5">
@@ -44,15 +58,22 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary btn-large mt-5 w-100 submit" type="submit" > Register </button>
+                        <button class="btn btn-primary btn-large mt-5 w-100 submit" type="submit" > Register
+                            <img src="img/git_loader.gif" width="20" class="loader ml-3" /> 
+                        </button>
                     </div>
                 </form>
+                <div class="text-center">
+                    <a href="index.html" class="text-white">Already have an account?  Sign in</a>
+                </div>
             </div>
         </div>
 
         <script>
             document.querySelector('.submit').addEventListener('click' , (e) =>{
                 e.preventDefault()
+                document.querySelector('.sucess-modal').style.display = 'none'
+                document.querySelector('.error-modal').style.display = 'none'
                 if(document.getElementById('pass').value !== document.getElementById('confPass').value) {
                     alert('Passwords do not match')
                     return
@@ -65,11 +86,11 @@
                     firstName: document.getElementById('fname').value,
                     lastName:  document.getElementById('lname').value,
                     email: document.getElementById('email').value,
-                    password: document.getElementById('fname').value,
-                    confirmPassword: document.getElementById('fname').value,
+                    password: document.getElementById('pass').value,
+                    confirmPassword: document.getElementById('confPass').value,
                 }
                 console.log(data)
-
+                document.querySelector('.loader').style.display = 'inline'
                 fetch('https://pregdia-app.herokuapp.com/api/v1.0.0/auth/user/signup', {    
                     method: 'POST', 
                     headers: {
@@ -77,8 +98,20 @@
                     },
                     body: JSON.stringify(data),
                 }).then(response => response.json()).then(data => {
+                    console.log(data)
+                    document.querySelector('.loader').style.display = 'none'
+                    document.querySelector('.loader').style.display = 'none'
+                    if(data.status !== 'success') {
+                        document.querySelector('.error-modal').style.display = 'block'
+                        document.querySelector('.error-msg').textContent = data.msg
+                        return
+                    }
+                    var pathname = window.location.pathname;
+                    document.querySelector('.sucess-modal').style.display = 'block'
+                    document.querySelector('.success-msg').textContent = data.msg
                     console.log('Success:', data);
                 }).catch((error) => {
+                    document.querySelector('.loader').style.display = 'none'
                     console.error('Error:', error);
                 });
             })
