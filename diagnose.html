@@ -29,9 +29,13 @@
                         <div class="col-md-5 ">
                             <img src="img/suplements.png" width="50" />
                         </div>
-                        <div class="col-md-7 text-center">
+                        <div class="col-md-5 text-center">
                             <img src="img/pregdiaText.jpeg" width="200" />
                         </div>
+                        <div class="col-md-2 text-center">
+                            <img src="img/logout (1).png" width="50" id="logout" class="cursor-pointer" title="logout" />
+                        </div>
+                        
                     </div>
                     <div class="row align-items-center">
                         <div class="col-md-5">
@@ -74,7 +78,9 @@
                             <label class="text-black"> RESULT</label>
                         </div>
                         <div class="col-md-7 text-center">
-                           <textarea class="form-control" cols="3" id="result"></textarea>
+                            <div class="tips_container" id="result">
+                               
+                            </div>
                         </div>
                     </div>
                     <div class="row align-items-center mt-4">
@@ -82,8 +88,8 @@
                             <label class="text-black"> FIRST AID TIPS</label>
                         </div>
                         <div class="col-md-7 text-center">
-                           <div>
-                               <ul>
+                           <div class="tips_container">
+                               <ul id="fa_tips">
                                    
                                </ul>
                            </div>
@@ -128,6 +134,7 @@
                     "week": parseInt(document.getElementById('week').value),
                 }
                 document.querySelector('.loader').style.display = 'inline'
+                document.querySelector('#fa_tips').innerHTML = 
                 fetch('https://pregdia-app.herokuapp.com/api/v1.0.0/diagnostics', {    
                     method: 'POST', 
                     headers: { 'Content-Type': 'application/json', Authorization: "bearer " + JSON.parse(localStorage.getItem('pregdiaUser')).accessToken, 'Accept': 'application/json',  },
@@ -151,15 +158,24 @@
                         setTimeout(() => {
                             document.querySelector('.sucess-modal').style.display = 'none'
                         }, 3000)
-                        document.getElementById('result').value = data.data.content.result
-                        return
+                        document.getElementById('result').textContent = data.data.content.result
+                        const tips = data.data.content.firstAidTips
+                        let tipsWrapper = document.querySelector('#fa_tips')
+                        tips.forEach(tip => {
+                            let li = document.createElement('li')
+                            li.textContent = tip
+                            tipsWrapper.appendChild(li)
+                        })
                     }
                   
-                    
                 }).catch((error) => {
                     document.querySelector('.loader').style.display = 'none'
-                    // document.querySelector('.error-modal').style.display = 'block'
                 });
+            })
+
+            document.addEventListener('click' , (e) => {
+                localStorage.clear()
+                window.location.replace("http://127.0.0.1:5500/index.html")
             })
         </script>
     </body>
