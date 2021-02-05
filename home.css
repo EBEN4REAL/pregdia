@@ -1,7 +1,10 @@
 body {
-    background: linear-gradient(rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.8)),  url(img/preg.jpeg);
-    background-position: center;
+    background: linear-gradient(rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.8)),  url(img/pn.jpeg);
+    background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 20px;
+}
+form {
+    margin-top: 90px;
 }

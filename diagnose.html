@@ -23,7 +23,6 @@
         </div>
         <div>
             <i class="fa fa-chevron-left mt-5 ml-5 cursor-pointer" aria-hidden="true" title="Go Back" style="font-size: 30px; color: white" onclick="goBack('category')"></i>
-            <!-- <img src="img/left-arrow (1).png"  width="30" title="Go Back" class="mt-5 ml-5 cursor-pointer" onclick="goBack('category')"/>  -->
             <div class="form-wrapper login" style="width: 50%">
                 <form class="mt-3">
                     <div class="row align-items-center">
@@ -31,10 +30,10 @@
                             <img src="img/suplements.png" width="50" />
                         </div>
                         <div class="col-md-7 text-center">
-                            <h5 class="text-black">PREGDIA</h5>
+                            <img src="img/pregdiaText.jpeg" width="200" />
                         </div>
                     </div>
-                    <div class="row align-items-center mt-4">
+                    <div class="row align-items-center">
                         <div class="col-md-5">
                             <label class="text-black">DESCRIBE SYMPTOMS  </label>
                         </div>
@@ -48,9 +47,9 @@
                         </div>
                         <div class="col-md-7">
                             <select class="form-control"  id="interval">
-                                <option>First Trim</option>
-                                <option>Second Trim</option>
-                                <option>Third Trim</option>
+                                <option value="1">First Trim</option>
+                                <option value="2">Second Trim</option>
+                                <option value="3">Third Trim</option>
                             </select>
                         </div>
                     </div>
@@ -59,7 +58,7 @@
                             <label>ENTER WEEK </label>
                         </div>
                         <div class="col-md-7">
-                           <input type="text" class="form-control" placeholder="Enter week"  id="week">
+                           <input type="number" class="form-control" placeholder="Enter week"  id="week">
                         </div>
                     </div>
                     <div class="row">
@@ -75,7 +74,7 @@
                             <label class="text-black"> RESULT</label>
                         </div>
                         <div class="col-md-7 text-center">
-                           <textarea class="form-control" cols="3"></textarea>
+                           <textarea class="form-control" cols="3" id="result"></textarea>
                         </div>
                     </div>
                     <div class="row align-items-center mt-4">
@@ -83,7 +82,11 @@
                             <label class="text-black"> FIRST AID TIPS</label>
                         </div>
                         <div class="col-md-7 text-center">
-                           <textarea class="form-control" cols="3"></textarea>
+                           <div>
+                               <ul>
+                                   
+                               </ul>
+                           </div>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -119,38 +122,43 @@
                     return
                 }
                 const data =  {
-                    email: document.getElementById('symptoms').value,
-                    password: document.getElementById('interval').value,
-                    password: document.getElementById('week').value,
+                    "category": localStorage.getItem('pregiaCategory') ? localStorage.getItem('pregiaCategory') : '',
+                    "symptomsDesc": document.getElementById('symptoms').value,
+                    "trimester": parseInt(document.getElementById('interval').value),
+                    "week": parseInt(document.getElementById('week').value),
                 }
                 document.querySelector('.loader').style.display = 'inline'
                 fetch('https://pregdia-app.herokuapp.com/api/v1.0.0/diagnostics', {    
                     method: 'POST', 
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json', Authorization: "bearer " + JSON.parse(localStorage.getItem('pregdiaUser')).accessToken, 'Accept': 'application/json',  },
                     body: JSON.stringify(data),
                 }).then(response => {
-                    console.log(response.headers)
                     return response.json()
                 }).then(data => {
                     console.log(data)
                     document.querySelector('.loader').style.display = 'none'
-                    if(data.status !== 'success') {
-                        document.querySelector('.error-modal').style.display = 'block'
-                        document.querySelector('.error-msg').textContent = data.msg
+                    if(data.status === "expired") {
+                        document.querySelector('.success-msg').textContent = 'Your session has expired, login to continue'
+                        setTimeout(() => {
+                            window.location.replace("http://127.0.0.1:5500/index.html")
+                        }, 2000)
                         return
                     }
-                    var pathname = window.location.pathname;
-                    localStorage.setItem('pregdiaUser', JSON.stringify(data.data.content))
-                    document.querySelector('.sucess-modal').style.display = 'block'
+                    if(data.status == 'success') {
+                        console.log(data.data.content.result)
+                        document.querySelector('.sucess-modal').style.display = 'block'
+                        document.querySelector('.success-msg').textContent = data.msg
+                        setTimeout(() => {
+                            document.querySelector('.sucess-modal').style.display = 'none'
+                        }, 3000)
+                        document.getElementById('result').value = data.data.content.result
+                        return
+                    }
+                  
                     
-                    setTimeout(() => {
-                        window.location.replace("http://127.0.0.1:5500/category.html")
-                    },5000)
                 }).catch((error) => {
                     document.querySelector('.loader').style.display = 'none'
-                    document.querySelector('.error-modal').style.display = 'block'
+                    // document.querySelector('.error-modal').style.display = 'block'
                 });
             })
         </script>

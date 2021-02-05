@@ -23,10 +23,10 @@
         </div>
         <div>
             <div class="form-wrapper login">
-                <div class="text-center py-5">
-                    <h3 class="text-white">PREGDIA</h3>
-                </div>
-                <form class="mt-3">
+                <form class="">
+                    <div class="text-center ">
+                        <img src="img/logo.jpeg" width="150" />
+                    </div>
                     <div class="mt-3">
                         <label>Email</label>
                         <div class="form_input">
@@ -97,5 +97,53 @@
                 document.querySelector('.error-modal').style.display = 'block'
             });
         })
+
+        // function Shape(name, sides, sideLength) {
+        //     this.name = name;
+        //     this.sides = sides;
+        //     this.sideLength = sideLength;
+        // }
+
+        // Shape.prototype.calcPerimeter = function () {
+        //     let perimeter = this.sides * this.sideLength;
+        //     return perimeter
+        // }    
+        // let square = new Shape('square', 4, 5)
+
+        // let triangle= new Shape('triangle', 3, 3)
+
+        // class Shapex {
+        //     constructor(name, sides, sideLength) {
+        //         this.name = name;
+        //         this.sides = sides;
+        //         this.sideLength = sideLength;
+        //     }
+        //     calcPerimeter(params) {
+        //         return `The perimeter of this ${this.name} is ${this.sides * this.sideLength}`
+        //     }
+        // }
+        // class Square extends Shapex {
+        //     constructor(name, sides, sideLength) {
+        //         super(name, sides, sideLength)
+        //     }
+        //     calArea() {
+        //         return `The area of this ${this.name} is ${this.sideLength * this.sideLength}`
+        //     }
+        // }
+        // let sq = new Square('Square' , 4, 6)
+        // console.log(sq.calArea())
+        // console.log(sq.calcPerimeter())
+
+        // function* generateSequence() {
+        //     yield 1;
+        //     yield 2;
+        //     return 3;
+        // }
+
+        // let generator = generateSequence();
+
+        // for(let value of generator) {
+        //     alert(value); 
+        // }
     </script>
 </html>
