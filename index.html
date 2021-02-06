@@ -2,7 +2,7 @@
     <title>Pregdia</title>
     <head>
         <link href="styles.css" rel="stylesheet" />
-        <link href="home.css" rel="stylesheet" />
+        <!-- <link href="home.css" rel="stylesheet" /> -->
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     </head>
@@ -23,6 +23,9 @@
         </div>
         <div>
             <div class="form-wrapper login">
+                <div class="text-center ">
+                    <img src="img/pregdiaText.jpeg" width="200" />
+                </div>
                 <form class="">
                     <div class="text-center ">
                         <img src="img/logo.jpeg" width="150" />
@@ -46,10 +49,10 @@
                     </div>
                 </form>
                 <div class="text-center">
-                    <a href="reset.html" class="text-white">Reset password</a>
+                    <a href="reset.html" class="text-black">Reset password</a>
                 </div>
                 <div class="text-center">
-                    <a href="signup.html" class="text-white">Don't have an account? Sign up</a>
+                    <a href="signup.html" class="text-black">Don't have an account? Sign up</a>
                 </div>
             </div>
         </div>
@@ -90,7 +93,7 @@
                 document.querySelector('.sucess-modal').style.display = 'block'
                 
                 setTimeout(() => {
-                    window.location.replace("http://pregdia.retrogreenliving.com/category.html")
+                    window.location.replace("http://127.0.0.1:5500/category.html")
                 },5000)
             }).catch((error) => {
                 document.querySelector('.loader').style.display = 'none'

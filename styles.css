@@ -15,7 +15,10 @@ body {
     box-shadow: 0px 3px 6px #0000000d;
     background: white;
     border-radius: 10px;
-    
+    border: 1px solid pink;
+ }
+ input, select, textarea{
+   border: 1px solid pink !important;
  }
  .header-bg-2 {
     height: 250px;
@@ -190,7 +193,7 @@ body {
   }
 
   .tips_container{
-    border: 1px solid lightgray;
+    border: 1px solid pink;
     width: 100%;
     min-height: 100px;
     border-radius: 8px;

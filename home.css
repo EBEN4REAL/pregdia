@@ -1,6 +1,6 @@
 body {
-    background: linear-gradient(rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.8)),  url(img/pn.jpeg);
-    background-position: left;
+    background:  url(img/pregdiaText.jpeg);
+    background-position:  0px 100px;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 20px;
