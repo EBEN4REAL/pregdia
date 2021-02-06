@@ -15,7 +15,7 @@ document.querySelector('.card-1').addEventListener('click' , (e) => {
 document.querySelector('.card-2').addEventListener('click' , (e) => {
     localStorage.setItem('pregiaCategory', 'post-natal')
     setTimeout(() => {
-        window.location.replace("http://127.0.0.1:5500/diagnose.html")
+        window.location.replace("http://127.0.0.1:5500/postnatal.html")
     }, 3000)
     document.querySelector('.card-2').style.boxShadow = '0px 4.5px 7px #6757a8'
     document.querySelector('.card-1').style.boxShadow = '0px 1.5px 3px #0000000d'
